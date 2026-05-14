@@ -1,1 +1,7 @@
+Nombre del estudiante: Karla la cruz
+Materia: computacion 
+Fecha: 14 de mayo de 2026
 
+--- Información de IA (Ejercicio 4) ---
+Modelo utilizado: Gemini 3 Flash (Google)
+Uso: Se utilizó la IA para la implementación del coeficiente de correlación de Pearson (pearson_r)
