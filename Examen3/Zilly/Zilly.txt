@@ -1,0 +1,12 @@
+La tarea consiste en:
+
+1. implementar sfib en Zilly+ (5 puntos)
+
+2. (bono: 1 punto adicional) ¿Notan una relación entre sfib con fibo?
+De ser así, consiga la fórmula e implemente la función zfib, tal the zfib(n) = sfib(n), para todo n.
+La implementación de zfib no debe ser recursiva, sólo depender directamente de fibo.
+
+3. (bono: 2 puntos adicionales) ¿Es zfib más rápido que sfib?
+Conteste SI o NO y explique porqué, de manera clara, rigurosa, y en pocas líneas, ya que no hacen falta muchas.
+
+Importante: deben tener la definicion de fibo (tal y como se muestra arriba) en el mismo archivo de sfib
