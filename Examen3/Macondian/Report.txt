@@ -1,2 +1,6 @@
 Usé GPT-5.6 Sol, Gemini 3.1 pro 
 
+En este proyecto, los datos llegan agrupados en lotes o batches. Cada lote contiene varios sensores y cada sensor incluye distintos valores provenientes de sus microsensores.
+Para procesar cada sensor, primero calculamos el promedio inicial de los valores de sus microsensores. Este promedio se utiliza como referencia para establecer un rango de tolerancia. El radio de tolerancia es configurable y se estableció inicialmente en un 10%, por lo que cualquier valor que se aleje del promedio más de ese margen se considera un dato atípico y se descarta.
+Después de filtrar los valores atípicos, calculamos un nuevo promedio utilizando únicamente los datos que quedaron dentro del rango permitido. Este resultado representa el valor final del sensor y es el que posteriormente se utiliza para construir la gráfica en la pantalla Chart.
+El mismo proceso se realiza de forma independiente para cada sensor y se repite cada vez que llega un nuevo batch al sistema.
