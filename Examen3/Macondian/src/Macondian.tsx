@@ -2,14 +2,19 @@
 /// Macondian.tsx
 ///
 
-import { SubmitEvent, useEffect, useRef, useState } from 'react';
+import { SubmitEvent, useEffect, useMemo, useRef, useState } from 'react';
 
 import Chart from "./Chart";
 import CLI from "./CLI";
 import Image from "./Image";
 import List from "./List";
 import Monitor from "./Monitor";
+import Test from "./Test";
 import ToolBar from "./ToolBar";
+import { parseMacondianMessage } from "./data/macondianParser";
+import { BatchProcessor } from "./statistics/BatchProcessor";
+import { ToleranceMeanModel } from "./statistics/ToleranceMeanModel";
+import type { RawBatch } from "./statistics/types";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -24,6 +29,7 @@ const copyright = <>Copyright © <b>Lakebolt™ Research</b> 2024-2026</>
 
 // max log entries retained in the Monitor
 const MONITOR_SIZE = 1024;
+const MAX_BATCHES = 128;
 
 // TGMR
 const tgmr = new Worker(new URL("./Macondian/tgmr-thx-1138.js", import.meta.url))
@@ -36,9 +42,24 @@ const Macondian = () => {
   // History of code and responses, shown in the Monitor pane.
   const [rawLog, setRawLog] = useState<string[]>([]);
 
-  // *** Recomiendo que se inspiren en la visualización de la "señal cruda" para hacer la del resultado ***
-  // presten atención a la entrevista para deducir el tipo del resultado
-  // const [seriesLog, seriesLog] = useState<aqui definen el tipo de la serie>(aqui definen el valor inicial);
+  // Typed batches reconstructed from the worker's textual streaming protocol.
+  const [rawBatches, setRawBatches] = useState<RawBatch[]>([]);
+
+  // The model is injected into the batch processor. Changing this value
+  // recomputes the complete retained series without changing the stream parser.
+  const [toleranceRadius, setToleranceRadius] = useState(0.10);
+  const statisticalModel = useMemo(
+    () => new ToleranceMeanModel(toleranceRadius),
+    [toleranceRadius],
+  );
+  const batchProcessor = useMemo(
+    () => new BatchProcessor(statisticalModel),
+    [statisticalModel],
+  );
+  const processedBatches = useMemo(
+    () => rawBatches.map((batch) => batchProcessor.process(batch)),
+    [rawBatches, batchProcessor],
+  );
 
   // View mode (user experience)
   const [ux, setUX] = useState(0);
@@ -93,17 +114,48 @@ const Macondian = () => {
     });
   };
 
+  const ingestDataMessage = (message: string) => {
+    const parsed = parseMacondianMessage(message);
+
+    if (parsed.kind === 'batch') {
+      setRawBatches((batches) => {
+        const next = [...batches, { batchId: parsed.batchId, receivedAt: Date.now(), sensors: [] }];
+        return next.length > MAX_BATCHES ? next.slice(-MAX_BATCHES) : next;
+      });
+      return;
+    }
+
+    if (parsed.kind === 'sensor') {
+      setRawBatches((batches) => {
+        if (batches.length === 0) return batches;
+
+        const lastIndex = batches.length - 1;
+        const currentBatch = batches[lastIndex];
+        const updatedBatch: RawBatch = {
+          ...currentBatch,
+          sensors: [...currentBatch.sensors, parsed.sensor],
+        };
+
+        return [...batches.slice(0, lastIndex), updatedBatch];
+      });
+    }
+  };
+
   // Wire the worker callback once, then prime the VM.
   // The callback uses functional setHistory, so ...
   // ... it stays correct without re-binding on every render.
   useEffect(() => {
-    tgmr.onmessage = (envelope: MessageEvent) => {
+    tgmr.onmessage = (envelope: MessageEvent<unknown>) => {
       const data = envelope.data;
-      if (!data) {
-        addHistoryItem(`ERROR: bad data in ${envelope}`);
+      if (typeof data !== 'string' || data.length === 0) {
+        const message = 'ERROR: bad data received from worker';
+        setError(message);
+        addHistoryItem(message);
         return;
       }
+
       addHistoryItem(data);
+      ingestDataMessage(data);
     };
   }, []);
 
@@ -112,18 +164,24 @@ const Macondian = () => {
   }
 
   const clearRawLog = () => setRawLog([]);
+  const clearBatches = () => setRawBatches([]);
 
   //
   // Toobar functions
   //
 
   const start = () => {
+    setError('');
     send(".start");
   }
 
   const reset = () => {
+    setError('');
     send(".reset");
-    setTimeout(clearRawLog, 496);
+    setTimeout(() => {
+      clearRawLog();
+      clearBatches();
+    }, 496);
   }
 
   const nop = () => {
@@ -176,7 +234,11 @@ const Macondian = () => {
       </section>
       <div className="pane-divider" onMouseDown={startDrag} title="Drag to resize" />
       <section className="app-pane" style={{ flexGrow: 100 - leftPct }}>
-        <Monitor title={"serie"} log={[]} />
+        <Test
+          batches={processedBatches}
+          toleranceRadius={toleranceRadius}
+          onToleranceChange={setToleranceRadius}
+        />
       </section>
     </div>
   );
@@ -188,7 +250,7 @@ const Macondian = () => {
       </section>
       <div className="pane-divider" onMouseDown={startDrag} title="Drag to resize" />
       <section className="app-pane" style={{ flexGrow: 100 - leftPct }}>
-        <Chart data={[]} />
+        <Chart batches={processedBatches} />
       </section>
     </div>
   );

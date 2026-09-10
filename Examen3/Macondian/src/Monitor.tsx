@@ -12,32 +12,39 @@ interface Props {
 const Monitor = ({ title, log }: Props) => {
   const ref = useRef<HTMLTextAreaElement>(null);
 
-  // Keep the latest entry in view; users can still scroll up freely.
   useEffect(() => {
-      const el = ref.current;
-      if (el) {
-          el.scrollTop = el.scrollHeight;
-      }
-  }, [history]);
+    const el = ref.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [log]);
 
   return (
-      <>
-        <h3>{title}</h3>
+    <article className="panel monitor-panel">
+      <header className="panel-header">
+        <div>
+          <span className="panel-eyebrow">Live monitor</span>
+          <h2>{title}</h2>
+        </div>
+        <div className="panel-meta">
+          <span className="live-indicator"><span className="status-dot" />Live</span>
+          <span>{log.length} lines</span>
+        </div>
+      </header>
+
+      <div className="terminal-wrap">
+        <div className="terminal-chrome" aria-hidden="true">
+          <span /><span /><span />
+        </div>
         <textarea
           ref={ref}
           readOnly
           spellCheck={false}
-          className="pane-fill"
+          className="pane-fill terminal-output"
           value={log.join('\n')}
-          style={{
-              textAlign: 'left',
-              color: '#202020',
-              backgroundColor: '#C0E090',
-              resize: 'none',
-              fontFamily: 'consolas',
-          }}
+          placeholder="Waiting for signal…"
+          aria-label={`${title} output`}
         />
-      </>
+      </div>
+    </article>
   );
 };
 

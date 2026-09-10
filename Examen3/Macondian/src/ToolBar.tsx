@@ -7,26 +7,68 @@ interface Props {
   reset: () => void;
   uxColor: (mode: number) => string;
   setUX: (mode: number) => void;
-  error?: string; 
-};
+  error?: string;
+}
+
+const modes = [
+  { id: 0, label: 'Raw' },
+  { id: 1, label: 'Test' },
+  { id: 2, label: 'Chart' },
+  { id: 3, label: 'Image' },
+  { id: 4, label: 'List' },
+];
 
 const ToolBar = (props: Props) => {
   return (
-    <div className="app-toolbar mt-2" data-bs-theme="dark">
-      <div className="input-group">
-        { props.error && <span className="toolbar-error">{props.error}</span> }
-        <button className="input-group-text" title={"Start the Macondian Reactor"} style={{ color: "lightgreen" }} onClick={props.start}>Start Macondian</button>
-        <text className="input-group-text flex-fill"/>
-        <button className="input-group-text" title={"Raw: ..."  } style={{ color: props.uxColor(0) }} onClick={props.setUX.bind(null, 0)}>Raw</button>
-        <button className="input-group-text" title={"Test: ..." } style={{ color: props.uxColor(1) }} onClick={props.setUX.bind(null, 1)}>Test</button>
-        <button className="input-group-text" title={"Chart: ..."} style={{ color: props.uxColor(2) }} onClick={props.setUX.bind(null, 2)}>Chart</button>
-        <button className="input-group-text" title={"Image: ..."} style={{ color: props.uxColor(3) }} onClick={props.setUX.bind(null, 3)}>Image</button>
-        <button className="input-group-text" title={"List: ..." } style={{ color: props.uxColor(4) }} onClick={props.setUX.bind(null, 4)}>List</button>
-        <text className="input-group-text flex-fill"/>
-        <button className="input-group-text" title={"Reset the Macondian Reactor"} style={{ color: "orange" }} onClick={props.reset}>Reset Macondian</button>
+    <div className="app-toolbar" aria-label="Macondian controls">
+      <div className="toolbar-actions">
+        <button
+          className="button button-primary"
+          title="Start the Macondian Reactor"
+          onClick={props.start}
+        >
+          <span className="button-dot" aria-hidden="true" />
+          Start Macondian
+        </button>
+
+        <button
+          className="button button-secondary"
+          title="Reset the Macondian Reactor"
+          onClick={props.reset}
+        >
+          Reset
+        </button>
+      </div>
+
+      <nav className="view-switcher" aria-label="View mode">
+        {modes.map((mode) => {
+          const active = props.uxColor(mode.id) === 'Yellow';
+          return (
+            <button
+              key={mode.id}
+              className={`view-tab ${active ? 'is-active' : ''}`}
+              title={`${mode.label} view`}
+              onClick={() => props.setUX(mode.id)}
+              aria-pressed={active}
+            >
+              {mode.label}
+            </button>
+          );
+        })}
+      </nav>
+
+      <div className="toolbar-status" aria-live="polite">
+        {props.error ? (
+          <span className="toolbar-error">{props.error}</span>
+        ) : (
+          <span className="system-online">
+            <span className="status-dot" aria-hidden="true" />
+            System ready
+          </span>
+        )}
       </div>
     </div>
-  )
+  );
 };
 
 export default ToolBar;

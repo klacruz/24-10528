@@ -3,19 +3,26 @@
 ///
 
 interface Props {
-  image: string; 
-};
+  image: string;
+}
 
 const Image = ({ image }: Props) => {
   const src = new URL(`../images/${image}`, import.meta.url).href;
+
   return (
-    <div style={{ display: "inline-block", verticalAlign: "top" }}>
-      <div className="splash-image transparent" style={{ float: "left" }}>
-        <img
-          src={src}
-        />
+    <article className="panel image-panel">
+      <header className="panel-header">
+        <div>
+          <span className="panel-eyebrow">Visual input</span>
+          <h2>Reference image</h2>
+        </div>
+        <span className="panel-file-name">{image}</span>
+      </header>
+
+      <div className="image-stage">
+        <img className="responsive-image" src={src} alt={image} />
       </div>
-    </div>
+    </article>
   );
 };
 
