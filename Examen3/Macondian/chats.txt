@@ -1,1 +1,2171 @@
-Actúa como un experto en UI/UX. Tengo una aplicación en typescript principalmente con dos pantallas principales: 'Test' y 'Chart'. Necesito mejorar drásticamente la estética. Proporcióname el código para aplicar un diseño moderno y profesional, asegurando que las imágenes de la interfaz se escalen correctamente sin perder proporción, y sugiere paletas de colores adecuadas para un dashboard de monitoreo.v
+GEMINI
+necesito que actues como un arquitecto de código y me des las instrucciones y prompts para usar con chat gpt plus para resolver la siguiente tarea # The Macondian
+
+Transcripción del encuentro - TOP SECRET - ULTRASECRETO
+Solo para ingenieros que firmaron el juramento de mantener confidencialidad absoluta
+
+## Diálogo
+
+Mr. X: (representante de la agencia que contrata a la empresa ARTES)
+Buenos días Hector: ¿Cómo le va?
+
+Dr. Hector Solana: (Gerente de Productos y Proyectos de ARTES)
+Buenos días (## redactado ##), todo bien por aqui, aunque me siento como un pez fuera del agua.
+Jamas habiamos trabajando con una agencia gubernamental tan importante como la suya.
+¿Puede darme una idea de este proyecto llamado "Macondo"?
+
+Mr. X:
+Bueno no puedo decir mucho sobre el proyecto por dos razones:
+- Macondo está clasificado: yo no puedo compartir lo que sé, y ..
+- yo mismo estoy en la obscuridad acerca de gran parte del proyecto!
+Pero no se preocupe, van a tener lo que necesitan. Decidimos contratarlos por buenas razones:
+ARTES tiene experiencia desarrollando sistemas integrados de procesamiento en tiempo real.
+
+Dr. Solana:
+Gracias, nosotros agradecemos que nos hayan elegido para ser parte de este proyecto.
+Supongo que ya tienen un plan para ponernos en marcha.
+
+Mr. X:
+Asi es. En esta primera fase vamos a programar una simulación parcial del sistema Macondo.
+Y digo "vamos" porque nosotros proporcionamos el generador de datos. ARTES se encarga de procesarlos.
+El generador simula y envía un flujo de datos de sensores Macondianos, agrupados en "batches" (lotes).
+Antes de entrar en más detalles, cuéntenme cómo nos va hasta ahora.
+
+Dr. Solana:
+Entiendo, vamos a implementar un procesamiento de flujos de datos, pero ... ¿"sensores Macondianos"?
+
+Mr. X:
+Sí, me alegra que lo pregunte. Imaginaba que se quedaría perplejo, y con razón.
+Yo mismo no sé qué miden esos sensores, y aun menos cómo lo hacen: ¡es información clasificada!
+Ni siquiera sabemos qué unidades fundamentales están involucradas [1].
+Sólo algunos científicos y pocos lideres de la agencia conocen la naturaleza real del proyecto.
+La mayoría de nosotros no sabemos quién sabe, quién no, o quién finge no saber.
+
+Dr. Solana:
+OMG!
+
+Mr. X:
+Como podrá imaginar, se trata de información muy sensitiva por razones de seguridad nacional.
+De hecho, usted me conoce, sabe mi nombre, y ahora sabe que ni siquiera yo sé mucho, pero aún así ...
+... ¡Me tiene en esta conversación secreta con el alias "Mr. X"!
+Es clasificada «TOP SECRET» por órdenes de las altas esferas.
+
+Dr. Solana:
+Comprendo.
+
+Mr. X:
+Aprecio que ARTES haya sometido a sus ingenieros a un riguroso proceso de evaluación.
+Es un proceso largo. Afortunadamente, usted ya está bajo contrato de confidencialidad.
+Ya sabe que esta conversación solo puede compartirse con unos pocos de sus ingenieros.
+
+Dr. Solana:
+Sí, pocos miembros de ARTES están involucrados en el proyecto, y lo mantienen en secreto.
+
+Mr. X:
+Puedo imaginarme el estrés por el que pasaron algunos, y la responsabilidad que sienten.
+Volviendo a los sensores Macondianos: la buena noticia es que ...
+... para ustedes — y, de hecho, también para nosotros — no son nada más que números.
+Nuestros científicos crearon un nombre para lo que miden los sensores, y ese nombre es...
+... por favor, no se ría ... ¡Macondos!
+
+Dr. Solana:
+(Sonriendo) De alguna manera ya me lo imaginaba.
+Ud. menciona que recibimos un flujo de datos, de múltiples sensores, "en lotes".
+¿Me está diciendo que no vamos a recibir un flujo separado para cada sensor Macondiano?
+
+Mr. X:
+Así es, no se obtiene un flujo de datos separado para cada sensor.
+Se obtiene un único flujo de lotes: cada uno con las lecturas de todos los sensores.
+En nuestro sistema, es fundamental obtener lecturas simultáneas de todos los sensores.
+Por eso, cada lote proporciona los datos de todos los sensores del sistema en un momento dado.
+Quizás Ud. se pregunta cuál es la frecuencia de los lotes y cuántos sensores hay.
+
+Dr. Solana:
+Sí, especialmente si tenemos requisitos estrictos en cuanto al tiempo de respuesta.
+
+Mr. X:
+Buen punto: ¡por eso contratamos personas que dominan este campo!
+La buena noticia es que primero vamos a simular el sistema íntegrado en software;
+una vez hecho esto, vamos a decidir qué implementar en firmware [2], de ser necesario.
+
+Dr. Solana:
+Sí, ese siempre es un buen enfoque.
+Me pregunto si el numero de sensores esta prefijado,
+y si tienen un estimado de los intervalos de tiempo entre los lotes.
+
+Mr. X:
+El número de sensores es un parámetro de la simulación.
+Su programa debe depender y funcionar para cualquier valor de los parámetros.
+En esta fase, no simulamos intervalos de tiempo entre mensajes por lotes.
+Más bien, mediremos (¡y sí, lo haremos!) la sobrecarga del procesamiento de datos y...
+...vamos a razonar a la inversa para decidir si procesar los datos mediante software es suficiente.
+Tenemos requisitos preliminares de frecuencia mínima de muestreo, basados ​​en la naturaleza del sistema,
+pero no necesitamos preocuparnos por eso hasta que conozcamos la sobrecarga del procesamiento de datos.
+Espero que su procesamiento sea tan rápido que podamos mantener la frecuencia mínima con holgura.
+
+Dr. Solana:
+Claro, la naturaleza de este proyecto lo requiere.
+Y conocer la sobrecarga del procesamiento de datos es clave.
+Entonces, si entiendo bien, ¿recibiremos lotes de manera continua, sin intervalo de tiempo preestablecido?
+
+Mr. X:
+Así es: el generador envía un lote tras otro, periodicamente, en sincronía con el procesamiento.
+Ahora bien, no mencioné ciertos detalles para que la explicación fuera más fluida y clara.
+
+Dr. Solana:
+Entiendo.
+
+Mr. X:
+En particular, probablemente se imagina que cada sensor proporciona una única lectura Macondiana ...
+... pero la realidad es más compleja que eso: cada sensor envía un conjunto de lecturas.
+Resulta ser que el sensor Macondiano es un dispositivo compuesto: contiene un arreglo de sensores [3].
+A esos los llamamos microsensores. Los Macondos son el promedio de las lecturas de los microsensores.
+
+Dr. Solana:
+Entiendo: seguramente es asi para mejorar la fiabilidad de la medida de Macondos.
+
+Mr. X:
+Correcto. Y debo agregar que el sensor Macondiano no calcula el promedio: ¡eso lo computan Ustedes!
+
+Dr. Solana:
+Ya veo. Eso significa que necesitamos las lecturas de todos los microsensores en cada lote, ¿verdad?
+
+Mr. X:
+Asi es, las lecturas de los microsensores vienen juntas, para cada sensor, en cada lote.
+Debo decirle que los sensores Macondianos vienen en distintos modelos, posiblemente de diferentes proveedores.
+Los modelos varian, particularmente en los microsensores, pero cada modelo tiene un número fijo de microsensores.
+Los científicos les dan nombres extraños, inspirados en China y Taiwan, pero dudo que los proveedores sean de alli.
+Algunos cuentan que los sensores Chinos tienen más microsensores para compensar la menor calidad de éstos.
+Es posible que estos cuentos sean "leyendas de laboratorio" para obfuscar de donde vienen los sensores.
+Lo que importa es que deben estar preparados a recibir datos de distinto tamaño.
+
+Dr. Solana:
+No hay problema - estamos acostumbrados a esas cosas.
+
+Mr. X:
+Por ultimo, ya le dije que la medida Macondiana es el promedio de las medidas de los microsensores.
+Pero estaba simplificando. La medida Macondiana es el resultado de un modelo estadístico de suavización.
+Es cierto que la medida depende de los microsensores, pero la síntesis es más compleja que calcular un promedio.
+La síntesis de los datos de los microsensores depende de un modelo estadístico y un parámetro clave del mismo.
+A ese parámetro lo conocemos como el radio Macondiano de tolerancia.
+
+Dr. Solana:
+Wow. Supongo que vamos a necesitar una especificación que describe el modelo estadístico.
+
+Mr. X:
+En principio si, pero déjeme explicar un poco más.
+La medida de los Macondos es, lógicamente, un estimado de los microsensores.
+El modelo estadístico es un modelo de suavización que depende de varias cosas.
+Principalmente de una medida de valor representativo (promedio, mediana, u otra), y ...
+... la eliminación de valores atípicos (outliers), debidos a fallas de los microsensores.
+El radio Macondiano de tolerancia es un margen de tolerancia para eliminar valores atípicos.
+
+Dr. Solana:
+Comprendo ...
+
+Sin embargo, el radio Macondiano de tolerancia es algo que nuestros científicos están tratando de determinar.
+Porque ... no es una simple cuestión de estadistica .. el radio .. el radio es algo que depende del mundo físico!
+Estoy hablando de experimentos de física cuántica, en nuestro laboratorio, que cuestan millones.
+
+Dr. Solana:
+Admiro lo avanzado del proyecto.
+
+Mr. X:
+Pero no se preocupe, en esta fase del proyecto pueden asumir un radio y simular el procesamiento.
+Después de todo, el valor del radio Macondiano de tolerancia no deberia afectar el costo del mismo.
+Los valores sugeridos son 5%~10% de los valores típicos, pero pueden experimentar con variaciones.
+
+Dr. Solana:
+De acuerdo: el costo de procesamiento típicamente depende del modelo, más que los parámetros del mismo.
+
+Mr. X:
+Asi es. Y esto nos lleva a otra sorpresa: ¡el modelo estadístico no está completamente decidido!
+No se asuste: nuestros matemáticos están analizando unos pocos modelos y verificando sus propiedades.
+Pero, y esto es algo que debería llenarlo de orgullo, ellos mismos me pidieron que ARTES desarrolle su modelo!
+La razón es simple, y dice mucho acerca de la integridad científica y talento de ambas organizaciones.
+Un miembro dijo: "desarrollar modelos independientemente puede ayudarmos a conseguir otros mejores".
+Para intercambiar los modelos con agilidad, va a ser util que definan una interfaz de procesamiento.
+
+Dr. Solana:
+Estoy completamente de acuerdo: es buena ingeniería de software. Me halaga la confianza de su grupo.
+
+Mr. X:
+Los modelos van a ser evaluados en dos dimensiones: sus propiedades matemáticas y el costo de procesamiento.
+La decisión final de cual adoptar va a depender de ambas.
+
+Dr. Solana:
+Me parece bien: ya se me ocurren ideas para hacer ese procesamiento más eficiente de lo que parece.
+
+Mr. X:
+No me sorprende: ¡Ud. siempre ha sido un genio en desarrollar algoritmos!
+
+Dr. Solana:
+Por favor .. no me haga sentir engreído. :-)
+
+Mr. X:
+Claro que no. Vamos a tener una cena .. ¡pagada por la agencia!
+
+Dr. Solana:
+¡Con mucho gusto!
+
+---
+
+Notas del facilitador de CI-2125,
+suponemos que nuestros ingenieros saben a que se refieren con estos términos:
+
+[1] Unidades fundamentales
+https://en.wikipedia.org/wiki/Unit_of_measurement
+https://en.wikipedia.org/wiki/Physical_quantity
+https://en.wikipedia.org/wiki/Dimensional_analysis
+
+[2] Firmware
+https://en.wikipedia.org/wiki/Firmware
+
+[3] Arreglo de sensores
+https://en.wikipedia.org/wiki/Sensor_array
+# Proyecto Macondian
+
+## The Macondian Part II
+
+Bienvenidos a la **segunda edicion** de la serie ***"The Macondian"***.
+
+### Notas sobre el uso de IA en esta evaluación
+Aqui están las reglas que aplican para "The Macondian".
+Con la excepcion de [4], el uso de la IA se permite, sin restricciones, a su discreción.
+Deber guardar, en su repositorio:
+- La lista de los modelos usados (con versión) en un archivo llamado "Report.md" o "Report.txt".
+- Tambien deben reportar, en un archivo "Chats.txt", sus "chats" (conversaciones) con la IA.
+Estas notas son consistentes con la modalidad **3** en el trabajo de investigación (*).
+
+### Tareas a realizar
+
+[1] Mejorar la experiencia del usuario (estética) de la interfaz de la siguiente forma:
+- (2 puntos) hacer que las pantallas con imágenes se vean mejor
+- otras nejoras, si les parecen importantes (opcional, 1 o 2 puntos *adicionales*)
+La evaluación es subjetiva a discrecion del profesor, como es el caso en la mayoría de evaluaciones.
+
+[2] (4 puntos - pantalla Test) Implementar el procesamiento de los datos crudos
+Modelar el tipo de resultado adecuado al problema. Presten mucha atencion a la entrevista.
+Visualicen el resultado de procesar la "señal cruda" en la ventana "serie".
+
+[3] (1 punto) Visualicen el procesamiento del sistema con una gráfica (pantalla Chart)
+(Hasta 2 puntos *adicionales* dependiendo del comportamiento y calidad de su gráfica)
+
+[4] (3 puntos) Expliquen su algoritmo de procesamento de los datos de los sensores.
+Deben ser capaces de explicarlo de forma clara, precisa, y sucinta, **sin usar IA**.
+La explicación del algoritmo debe incluirse en el archivo "Report.md" o "Report.txt".
+El profesor, a discreción suya, puede interrogarlos sobre el proyecto ***Macondian***.
+
+Esta parte de la evaluación vale 10 puntos.
+La tarea para los 5 puntos restantes se van a enviar, por separado, via email.
+
+Buena surte!
+
+---
+
+(*) Literalmente, en Inglés, como aparece en el trabajo:
+***Discretionary AI usage with partial reporting***
+- State the models used, if any.
+- Save the AI chats, for possible review and research.
+¡Hola! Es un placer colaborar contigo en esta misión "Top Secret". Como arquitecto de código, entiendo perfectamente el desafío: necesitas un sistema robusto que separe la presentación gráfica del complejo procesamiento de datos en tiempo real.
+
+Aquí tienes el plan de ataque para guiar a ChatGPT Plus, estructurado de manera lógica para cumplir con todos los requerimientos del proyecto "Macondo".
+
+## Estrategia Arquitectónica
+
+Para abordar este proyecto, estructuraremos la solución separando la interfaz gráfica de la lógica de cálculo. Implementaremos el patrón de diseño *Strategy* para el modelo estadístico, lo que permitirá intercambiar algoritmos fácilmente, tal como lo solicitó Mr. X. Dado que el manejo iterativo de lotes de datos y el análisis de varianza comparten fundamentos matemáticos con algoritmos de agrupamiento y procesamiento de estructuras de datos complejas, la construcción de estos módulos de cálculo te resultará bastante natural y lógica.
+
+## Prompts para ChatGPT Plus
+
+Copia y pega estos prompts secuencialmente. Recuerda reemplazar `[Tu Framework/Lenguaje]` con el entorno que estés utilizando (por ejemplo, C++ con Qt, React, Python, etc.).
+
+* **Prompt 1 (UX/UI - Tarea 1):** "Actúa como un experto en UI/UX. Tengo una aplicación en `[Tu Framework/Lenguaje]` con dos pantallas principales: 'Test' y 'Chart'. Necesito mejorar drásticamente la estética. Proporcióname el código para aplicar un diseño moderno y profesional, asegurando que las imágenes de la interfaz se escalen correctamente sin perder proporción, y sugiere paletas de colores adecuadas para un dashboard de monitoreo."
+* **Prompt 2 (Lógica y Modelo - Tarea 2):** "Actúa como ingeniero de software. Necesito procesar un flujo continuo de 'batches' de datos. Cada batch contiene varios sensores, y cada sensor reporta un arreglo dinámico de 'microsensores'. Primero, define una interfaz para inyectar modelos estadísticos. Luego, implementa un modelo concreto que: 1) calcule el promedio inicial de los microsensores, 2) descarte los valores atípicos (outliers) utilizando un 'radio de tolerancia' configurable (por ejemplo, un margen del $10\%$), y 3) retorne el promedio final de los datos limpios. Conecta esto a la pantalla 'Test'."
+* **Prompt 3 (Visualización - Tarea 3):** "Usando los datos procesados del modelo anterior, dame el código en `[Tu Framework/Lenguaje]` para integrar una gráfica dinámica en la pantalla 'Chart'. La gráfica debe visualizar la serie temporal de los resultados procesados a medida que el generador envía nuevos lotes, actualizándose en tiempo real de forma fluida."
+
+## Preparación para tu Reporte (Tarea 4)
+
+Como debes explicar tu algoritmo sin usar IA, te sugiero basar tu modelo estadístico en una lógica de "Media Recortada" (*Trimmed Mean*), que es fácil de defender ante el profesor:
+
+* **Paso 1:** Calcular una métrica central inicial (como la media o mediana) del arreglo de microsensores.
+* **Paso 2:** Definir el límite absoluto de error usando el radio de tolerancia $r$.
+* **Paso 3:** Iterar sobre el arreglo y rechazar cualquier lectura que caiga fuera del rango aceptable $[\text{centro} - r, \text{centro} + r]$.
+* **Paso 4:** Retornar el promedio matemático de las lecturas válidas restantes para obtener el valor "Macondiano".
+
+## Cumplimiento de Evaluación
+
+* No olvides guardar todas las respuestas generadas en tu archivo `Chats.txt`.
+* Registra las versiones exactas del modelo (ej. GPT-4o) en tu `Report.md`.
+
+¿En qué lenguaje o entorno específico estás construyendo la interfaz gráfica para poder ajustar los detalles técnicos de la integración?
+
+CHAT GPT 
+Actúa como un experto en UI/UX. Tengo una aplicación en typescript principalmente con dos pantallas principales: 'Test' y 'Chart'. Necesito mejorar drásticamente la estética. Proporcióname el código para aplicar un diseño moderno y profesional, asegurando que las imágenes de la interfaz se escalen correctamente sin perder proporción, y sugiere paletas de colores adecuadas para un dashboard de monitoreo.
+Sí. Para una app TypeScript con dos vistas principales, **Test** y **Chart**, yo la llevaría hacia un lenguaje visual tipo **monitoring dashboard / analytics console**: fondo ligeramente gris, cards limpias, bordes sutiles, jerarquía tipográfica clara, navegación lateral compacta y un color de acento reservado para estados y datos importantes.
+
+Voy a asumir **React + TypeScript**. Si usas Next, Vite o alguna librería específica de charts, la estructura se adapta casi igual.
+
+### Dirección visual
+
+Evitaría un dashboard lleno de colores. La base debería ser neutra y dejar que verde/rojo/amarillo comuniquen estados.
+
+**Paleta recomendada — Professional Monitoring**
+
+```css
+--bg: #F6F8FB;
+--surface: #FFFFFF;
+--surface-secondary: #F1F4F8;
+
+--border: #E5E9F0;
+
+--text-primary: #18212F;
+--text-secondary: #667085;
+--text-muted: #98A2B3;
+
+--primary: #2563EB;
+--primary-hover: #1D4ED8;
+
+--success: #16A34A;
+--warning: #D97706;
+--danger: #DC2626;
+--info: #0284C7;
+```
+
+Si quieres algo más **tech / dark monitoring**, usaría:
+
+```css
+--bg: #0B0F17;
+--surface: #111827;
+--surface-secondary: #172033;
+
+--border: #263246;
+
+--text-primary: #F8FAFC;
+--text-secondary: #94A3B8;
+
+--primary: #38BDF8;
+--success: #34D399;
+--warning: #FBBF24;
+--danger: #FB7185;
+```
+
+Para una aplicación profesional empezaría con la primera.
+
+---
+
+## 1. Estructura general
+
+```tsx
+// App.tsx
+
+import { useState } from "react";
+import { LayoutDashboard, FlaskConical, BarChart3, Bell } from "lucide-react";
+
+import "./styles.css";
+
+type Page = "test" | "chart";
+
+export default function App() {
+  const [activePage, setActivePage] = useState<Page>("test");
+
+  return (
+    <div className="app">
+      <aside className="sidebar">
+        <div className="brand">
+          <div className="brandIcon">
+            <LayoutDashboard size={20} />
+          </div>
+
+          <div>
+            <strong>Monitor</strong>
+            <span>Dashboard</span>
+          </div>
+        </div>
+
+        <nav className="navigation">
+          <button
+            className={`navItem ${activePage === "test" ? "active" : ""}`}
+            onClick={() => setActivePage("test")}
+          >
+            <FlaskConical size={18} />
+            Test
+          </button>
+
+          <button
+            className={`navItem ${activePage === "chart" ? "active" : ""}`}
+            onClick={() => setActivePage("chart")}
+          >
+            <BarChart3 size={18} />
+            Chart
+          </button>
+        </nav>
+
+        <div className="sidebarFooter">
+          <div className="systemStatus">
+            <span className="statusDot" />
+            System operational
+          </div>
+        </div>
+      </aside>
+
+      <main className="main">
+        <header className="topbar">
+          <div>
+            <p className="eyebrow">MONITORING PLATFORM</p>
+            <h1>{activePage === "test" ? "Test Monitor" : "Analytics"}</h1>
+          </div>
+
+          <button className="iconButton" aria-label="Notifications">
+            <Bell size={19} />
+          </button>
+        </header>
+
+        <div className="content">
+          {activePage === "test" ? <TestPage /> : <ChartPage />}
+        </div>
+      </main>
+    </div>
+  );
+}
+```
+
+---
+
+## 2. Pantalla Test
+
+En vez de simplemente mostrar información en cajas, usaría una combinación de **KPIs + panel principal + status cards**.
+
+```tsx
+function TestPage() {
+  return (
+    <>
+      <section className="metricsGrid">
+        <MetricCard
+          label="Total Tests"
+          value="1,284"
+          change="+12.4%"
+          status="positive"
+        />
+
+        <MetricCard
+          label="Successful"
+          value="1,219"
+          change="94.9%"
+          status="positive"
+        />
+
+        <MetricCard
+          label="Warnings"
+          value="42"
+          change="3.2%"
+          status="warning"
+        />
+
+        <MetricCard
+          label="Failed"
+          value="23"
+          change="1.9%"
+          status="danger"
+        />
+      </section>
+
+      <section className="dashboardGrid">
+        <div className="card mainPanel">
+          <div className="cardHeader">
+            <div>
+              <span className="cardLabel">LIVE TEST</span>
+              <h2>System Analysis</h2>
+            </div>
+
+            <span className="badge success">Running</span>
+          </div>
+
+          <div className="imageContainer">
+            <img
+              src="/images/test-image.jpg"
+              alt="Current test"
+              className="responsiveImage"
+            />
+          </div>
+
+          <div className="testInformation">
+            <InfoRow label="Test ID" value="#TST-48291" />
+            <InfoRow label="Started" value="14:32:18" />
+            <InfoRow label="Duration" value="03:48" />
+          </div>
+        </div>
+
+        <div className="card statusPanel">
+          <div className="cardHeader">
+            <div>
+              <span className="cardLabel">STATUS</span>
+              <h2>Test health</h2>
+            </div>
+          </div>
+
+          <StatusItem
+            title="Image processing"
+            description="Operating normally"
+            status="success"
+          />
+
+          <StatusItem
+            title="Data acquisition"
+            description="Operating normally"
+            status="success"
+          />
+
+          <StatusItem
+            title="Response latency"
+            description="Slightly above baseline"
+            status="warning"
+          />
+
+          <StatusItem
+            title="System integrity"
+            description="No anomalies detected"
+            status="success"
+          />
+        </div>
+      </section>
+    </>
+  );
+}
+```
+
+Componentes:
+
+```tsx
+interface MetricCardProps {
+  label: string;
+  value: string;
+  change: string;
+  status: "positive" | "warning" | "danger";
+}
+
+function MetricCard({
+  label,
+  value,
+  change,
+  status
+}: MetricCardProps) {
+  return (
+    <div className="metricCard">
+      <span className="metricLabel">{label}</span>
+
+      <div className="metricBottom">
+        <strong>{value}</strong>
+
+        <span className={`metricChange ${status}`}>
+          {change}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function InfoRow({
+  label,
+  value
+}: {
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="infoRow">
+      <span>{label}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}
+
+function StatusItem({
+  title,
+  description,
+  status
+}: {
+  title: string;
+  description: string;
+  status: "success" | "warning" | "danger";
+}) {
+  return (
+    <div className="statusItem">
+      <span className={`statusIndicator ${status}`} />
+
+      <div>
+        <strong>{title}</strong>
+        <span>{description}</span>
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+# 3. Pantalla Chart
+
+Para Chart dejaría mucho aire alrededor de la gráfica y evitaría llenar el área de controles.
+
+```tsx
+function ChartPage() {
+  return (
+    <>
+      <section className="metricsGrid">
+        <MetricCard
+          label="Average"
+          value="74.8"
+          change="+4.2%"
+          status="positive"
+        />
+
+        <MetricCard
+          label="Peak"
+          value="92.3"
+          change="+7.8%"
+          status="positive"
+        />
+
+        <MetricCard
+          label="Minimum"
+          value="41.7"
+          change="-1.4%"
+          status="warning"
+        />
+
+        <MetricCard
+          label="Samples"
+          value="8,492"
+          change="+320"
+          status="positive"
+        />
+      </section>
+
+      <section className="card chartCard">
+        <div className="cardHeader chartHeader">
+          <div>
+            <span className="cardLabel">PERFORMANCE</span>
+            <h2>Signal history</h2>
+          </div>
+
+          <div className="periodSelector">
+            <button>1H</button>
+            <button className="selected">24H</button>
+            <button>7D</button>
+            <button>30D</button>
+          </div>
+        </div>
+
+        <div className="chartContainer">
+          {/* Recharts / Chart.js / ApexCharts */}
+          <div className="chartPlaceholder">
+            Your chart goes here
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+```
+
+---
+
+# 4. CSS completo
+
+Aquí está la parte que más transformaría visualmente tu app.
+
+```css
+/* styles.css */
+
+@import url(
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+);
+
+:root {
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-secondary: #f1f4f8;
+
+  --border: #e5e9f0;
+
+  --text-primary: #18212f;
+  --text-secondary: #667085;
+  --text-muted: #98a2b3;
+
+  --primary: #2563eb;
+  --primary-light: #eff6ff;
+
+  --success: #16a34a;
+  --success-light: #f0fdf4;
+
+  --warning: #d97706;
+  --warning-light: #fffbeb;
+
+  --danger: #dc2626;
+  --danger-light: #fef2f2;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --shadow-card:
+    0 1px 2px rgba(16, 24, 40, 0.02),
+    0 2px 8px rgba(16, 24, 40, 0.04);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: var(--bg);
+  color: var(--text-primary);
+
+  -webkit-font-smoothing: antialiased;
+}
+
+/* APP LAYOUT */
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 22px 16px;
+
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding: 0 8px 24px;
+}
+
+.brandIcon {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  color: white;
+  background: var(--primary);
+}
+
+.brand div:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.brand span {
+  margin-top: 2px;
+
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* NAVIGATION */
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.navItem {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding: 10px 12px;
+
+  border: 0;
+  border-radius: var(--radius-sm);
+
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 150ms ease,
+    color 150ms ease;
+}
+
+.navItem:hover {
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+}
+
+.navItem.active {
+  background: var(--primary-light);
+  color: var(--primary);
+
+  font-weight: 600;
+}
+
+/* SIDEBAR FOOTER */
+
+.sidebarFooter {
+  margin-top: auto;
+}
+
+.systemStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px;
+
+  border-radius: var(--radius-sm);
+
+  color: var(--text-secondary);
+  background: var(--surface-secondary);
+
+  font-size: 11px;
+}
+
+.statusDot {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  background: var(--success);
+
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.1);
+}
+
+/* MAIN */
+
+.main {
+  min-width: 0;
+}
+
+.topbar {
+  height: 88px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 32px;
+
+  background: rgba(255, 255, 255, 0.8);
+
+  border-bottom: 1px solid var(--border);
+
+  backdrop-filter: blur(10px);
+}
+
+.eyebrow {
+  margin: 0 0 3px;
+
+  color: var(--text-muted);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.topbar h1 {
+  margin: 0;
+
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+
+.iconButton {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+
+  background: white;
+
+  color: var(--text-secondary);
+
+  cursor: pointer;
+}
+
+.iconButton:hover {
+  background: var(--surface-secondary);
+}
+
+/* CONTENT */
+
+.content {
+  width: 100%;
+  max-width: 1500px;
+
+  margin: 0 auto;
+  padding: 28px 32px 48px;
+}
+
+/* METRICS */
+
+.metricsGrid {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin-bottom: 18px;
+}
+
+.metricCard {
+  padding: 18px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+
+  box-shadow: var(--shadow-card);
+}
+
+.metricLabel {
+  color: var(--text-secondary);
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.metricBottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-top: 14px;
+}
+
+.metricBottom strong {
+  font-size: 26px;
+  line-height: 1;
+
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.metricChange {
+  padding: 4px 7px;
+
+  border-radius: 6px;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.metricChange.positive {
+  color: var(--success);
+  background: var(--success-light);
+}
+
+.metricChange.warning {
+  color: var(--warning);
+  background: var(--warning-light);
+}
+
+.metricChange.danger {
+  color: var(--danger);
+  background: var(--danger-light);
+}
+
+/* GENERAL CARDS */
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  background: var(--surface);
+
+  box-shadow: var(--shadow-card);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 22px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.cardHeader h2 {
+  margin: 3px 0 0;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  letter-spacing: -0.02em;
+}
+
+.cardLabel {
+  color: var(--text-muted);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.badge.success {
+  color: var(--success);
+  background: var(--success-light);
+}
+
+/* DASHBOARD GRID */
+
+.dashboardGrid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.65fr)
+    minmax(280px, 0.75fr);
+
+  gap: 18px;
+}
+
+/* IMAGE */
+
+/*
+  Esta es la parte importante para preservar
+  correctamente la proporción de tus imágenes.
+*/
+
+.imageContainer {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  padding: 14px;
+
+  overflow: hidden;
+
+  background: var(--surface-secondary);
+}
+
+.responsiveImage {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  object-position: center;
+
+  border-radius: var(--radius-sm);
+}
+
+/* TEST INFORMATION */
+
+.testInformation {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  padding: 6px 22px 18px;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  padding: 14px 0;
+}
+
+.infoRow span {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.infoRow strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* STATUS */
+
+.statusPanel {
+  overflow: hidden;
+}
+
+.statusItem {
+  display: flex;
+  gap: 12px;
+
+  padding: 17px 22px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.statusItem:last-child {
+  border-bottom: 0;
+}
+
+.statusIndicator {
+  width: 8px;
+  height: 8px;
+
+  margin-top: 4px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+}
+
+.statusIndicator.success {
+  background: var(--success);
+}
+
+.statusIndicator.warning {
+  background: var(--warning);
+}
+
+.statusIndicator.danger {
+  background: var(--danger);
+}
+
+.statusItem div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statusItem strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.statusItem span:last-child {
+  color: var(--text-secondary);
+  font-size: 10px;
+}
+
+/* CHART */
+
+.chartCard {
+  overflow: hidden;
+}
+
+.chartHeader {
+  gap: 20px;
+}
+
+.periodSelector {
+  display: flex;
+
+  padding: 3px;
+
+  border-radius: var(--radius-sm);
+
+  background: var(--surface-secondary);
+}
+
+.periodSelector button {
+  padding: 6px 9px;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.periodSelector button.selected {
+  background: white;
+  color: var(--text-primary);
+
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08);
+}
+
+.chartContainer {
+  min-height: 420px;
+
+  padding: 22px;
+}
+
+.chartPlaceholder {
+  height: 380px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: var(--radius-md);
+
+  color: var(--text-muted);
+  background: var(--surface-secondary);
+
+  font-size: 12px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    height: auto;
+    position: static;
+
+    padding: 12px;
+
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand,
+  .sidebarFooter {
+    display: none;
+  }
+
+  .navigation {
+    flex-direction: row;
+  }
+
+  .navItem {
+    width: auto;
+  }
+
+  .topbar {
+    height: 74px;
+
+    padding: 0 18px;
+  }
+
+  .content {
+    padding: 20px 16px 32px;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .testInformation {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .chartHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+```
+
+## 5. Para las imágenes: `contain` vs `cover`
+
+En una aplicación de monitoreo, esto importa bastante.
+
+Si la imagen contiene información y **no se puede recortar**, usa:
+
+```css
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+```
+
+Así:
+
+```text
+┌─────────────────────┐
+│                     │
+│   ┌─────────────┐   │
+│   │   IMAGEN    │   │
+│   └─────────────┘   │
+│                     │
+└─────────────────────┘
+```
+
+La imagen completa siempre permanece visible.
+
+Si es una fotografía puramente decorativa y prefieres llenar todo el espacio:
+
+```css
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+Pero puede recortar los extremos.
+
+**Para Test usaría `contain` casi siempre.**
+
+También puedes evitar deformaciones incluso sin altura fija:
+
+```css
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+```
+
+Nunca haría esto:
+
+```css
+/* ❌ Puede deformar la imagen */
+img {
+  width: 500px;
+  height: 300px;
+}
+```
+
+sin acompañarlo de `object-fit`.
+
+## 6. Si estás usando Recharts
+
+Para el Chart, un estilo así encajaría muy bien con el UI:
+
+```tsx
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip
+} from "recharts";
+
+const data = [
+  { time: "00:00", value: 64 },
+  { time: "04:00", value: 72 },
+  { time: "08:00", value: 68 },
+  { time: "12:00", value: 81 },
+  { time: "16:00", value: 77 },
+  { time: "20:00", value: 88 },
+  { time: "24:00", value: 84 }
+];
+
+export function MonitoringChart() {
+  return (
+    <div style={{ width: "100%", height: 380 }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={data}>
+          <defs>
+            <linearGradient
+              id="chartGradient"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
+              <stop
+                offset="0%"
+                stopColor="#2563EB"
+                stopOpacity={0.18}
+              />
+
+              <stop
+                offset="100%"
+                stopColor="#2563EB"
+                stopOpacity={0}
+              />
+            </linearGradient>
+          </defs>
+
+          <CartesianGrid
+            stroke="#E5E9F0"
+            vertical={false}
+          />
+
+          <XAxis
+            dataKey="time"
+            axisLine={false}
+            tickLine={false}
+            tick={{
+              fill: "#98A2B3",
+              fontSize: 11
+            }}
+          />
+
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            tick={{
+              fill: "#98A2B3",
+              fontSize: 11
+            }}
+          />
+
+          <Tooltip />
+
+          <Area
+            type="monotone"
+            dataKey="value"
+            stroke="#2563EB"
+            strokeWidth={2}
+            fill="url(#chartGradient)"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+```
+
+El resultado conceptual sería algo parecido a:
+
+```text
+┌──────────┬──────────────────────────────────────────────────────┐
+│          │ MONITORING PLATFORM                     ○            │
+│ Monitor  │ Test Monitor                                         │
+│          ├──────────────────────────────────────────────────────┤
+│ ● Test   │                                                      │
+│   Chart  │  TOTAL       SUCCESS      WARNING       FAILED       │
+│          │  1,284       1,219        42            23           │
+│          │                                                      │
+│          │ ┌─────────────────────────────┐ ┌──────────────────┐ │
+│          │ │ LIVE TEST           RUNNING │ │ STATUS           │ │
+│          │ │                             │ │                  │ │
+│          │ │                             │ │ ● Image          │ │
+│          │ │        TEST IMAGE           │ │ ● Data           │ │
+│          │ │                             │ │ ● Latency        │ │
+│          │ │                             │ │ ● Integrity      │ │
+│          │ └─────────────────────────────┘ └──────────────────┘ │
+│          │                                                      │
+│ ● Online │                                                      │
+└──────────┴──────────────────────────────────────────────────────┘
+```
+
+### Lo que más impacto tendrá
+
+No intentaría hacerla más «bonita» agregando elementos. Haría exactamente lo contrario: **menos bordes gruesos, menos colores, más espacio, tipografía consistente y una jerarquía fuerte**. Usa `12–16px` de border radius, sombras extremadamente sutiles, Inter/Geist como tipografía, un solo azul de interacción y los colores rojo/amarillo/verde únicamente para estados.
+
+Si me pasas **una captura de cómo se ven actualmente las pantallas Test y Chart o los archivos `.tsx/.css` actuales**, puedo rediseñarlas sobre tu estructura real y devolverte el código prácticamente **copy-paste**, en vez de trabajar sobre una arquitectura hipotética.
+este es el código original la idea es mejorarlo 
+Sí. Ya trabajé sobre **tu código original**, no sobre una estructura inventada. Conservé el worker, los comandos, las cinco vistas y el split redimensionable, y enfoqué el rediseño principalmente en **Test** y **Chart**.
+
+[Descargar Macondian — UI Redesign](sandbox:/mnt/data/Macondian-UI-Redesign.zip)
+
+Los cambios principales son:
+
+* **Dashboard oscuro profesional**, más cercano a una plataforma técnica/de monitoreo que a una interfaz Bootstrap.
+* **Test** mantiene la estructura de señal cruda + serie, pero ambos ahora se presentan como paneles de monitoreo.
+* **Chart** ahora tiene una visualización real en SVG responsive, KPIs superiores y área de gráfica. Dejé datos de preview cuando `data={[]}` para que puedas ver el diseño antes de conectar la serie real.
+* **Toolbar completamente rediseñado** con navegación segmentada `Raw / Test / Chart / Image / List`.
+* `Start Macondian` se convierte en la acción primaria y `Reset` en secundaria.
+* **CLI** rediseñado como command bar inferior.
+* **Monitor** convertido en una especie de terminal profesional con indicador Live, contador de líneas y mejor legibilidad.
+* **Imágenes responsive correctamente**, usando `object-fit: contain`, así que nunca se deforman aunque redimensiones los paneles.
+* Mejoré el comportamiento responsive para laptops y pantallas más pequeñas.
+* Eliminé varios estilos inline para que el sistema visual se controle desde `index.css`.
+* Corregí un detalle del código original en `Monitor.tsx`: el `useEffect` estaba dependiendo de `history` y ahora correctamente depende de `log`.
+
+La paleta que apliqué es:
+
+```text
+Background        #080C14
+Elevated BG       #0D1320
+Panels            #101827
+Borders           #22304A
+
+Primary blue      #66A3FF
+Success / Live    #47D7A1
+Warning           #F4BF63
+Error             #FF7474
+
+Main text         #EDF3FB
+Secondary text    #9AA9BF
+```
+
+Además dejé dentro del proyecto un archivo `UI_REDESIGN_NOTES.md` explicando el sistema visual y dónde modificar los colores.
+
+Un detalle técnico: pude validar la **sintaxis TSX** de los componentes modificados. El `npm run build` del ZIP original no se pudo completar en mi entorno porque el proyecto traía `node_modules` generado para otra plataforma y su binding nativo de Rolldown no era compatible; por eso el ZIP nuevo va limpio, **sin `node_modules`**. En tu máquina haces:
+
+```bash
+npm install
+npm run start
+```
+
+y debería reconstruir las dependencias para tu sistema.
+
+Creo que este enfoque encaja bastante mejor con **Macondian**: no parece un dashboard corporativo genérico, sino una herramienta técnica/experimental con una estética mucho más intencional.
+Actúa como ingeniero de software. Necesito procesar un flujo continuo de 'batches' de datos. Cada batch contiene varios sensores, y cada sensor reporta un arreglo dinámico de 'microsensores'. Primero, define una interfaz para inyectar modelos estadísticos. Luego, implementa un modelo concreto que: 1) calcule el promedio inicial de los microsensores, 2) descarte los valores atípicos (outliers) utilizando un 'radio de tolerancia' configurable (por ejemplo, un margen del 10%), y 3) retorne el promedio final de los datos limpios. Conecta esto a la pantalla 'Test'
+Sí. Ya lo integré directamente sobre la versión rediseñada de **Macondian**, respetando el worker y el flujo existente.
+
+[Descargar Macondian con procesamiento estadístico](sandbox:/mnt/data/Macondian-Statistical-Test.zip)
+
+La arquitectura quedó separada para que el modelo estadístico sea intercambiable:
+
+* `src/statistics/StatisticalModel.ts`: interfaz inyectable.
+* `src/statistics/ToleranceMeanModel.ts`: implementación concreta con promedio → filtro de outliers → promedio limpio.
+* `src/statistics/BatchProcessor.ts`: procesa cada batch sin depender del modelo concreto.
+* `src/statistics/types.ts`: tipos de `RawBatch`, sensores, microsensores y resultados.
+* `src/data/macondianParser.ts`: transforma los strings que salen del worker en datos TypeScript.
+* `src/Test.tsx`: nueva visualización del resultado procesado.
+* `src/Macondian.tsx`: conecta el stream real con todo el pipeline.
+
+La interfaz principal queda así:
+
+```ts
+export interface StatisticalModel {
+  readonly name: string;
+
+  process(
+    microsensors: readonly number[]
+  ): StatisticalResult;
+}
+```
+
+Y el modelo concreto recibe el radio por constructor:
+
+```ts
+const statisticalModel =
+  new ToleranceMeanModel(0.10);
+
+const batchProcessor =
+  new BatchProcessor(statisticalModel);
+```
+
+El cálculo implementado hace exactamente lo que pediste. Primero:
+
+```ts
+const initialMean =
+  mean(microsensors);
+```
+
+Después calcula el margen a partir del promedio:
+
+```ts
+const toleranceMargin =
+  Math.abs(initialMean) * this.toleranceRadius;
+```
+
+Y clasifica cada microsensor:
+
+```ts
+for (const value of microsensors) {
+  const isInsideTolerance =
+    Math.abs(value - initialMean) <= toleranceMargin;
+
+  (isInsideTolerance
+    ? cleanValues
+    : outliers
+  ).push(value);
+}
+```
+
+Finalmente:
+
+```ts
+const finalMean =
+  cleanValues.length > 0
+    ? mean(cleanValues)
+    : initialMean;
+```
+
+Por ejemplo, para:
+
+```text
+[2.01, 2.02, 2.00, 2.03, 2.50, 2.01]
+```
+
+con un radio de **10%**, el resultado probado fue:
+
+```text
+Promedio inicial → 2.095
+Outlier          → 2.500
+Datos válidos    → 5 / 6
+Promedio final   → 2.014
+```
+
+### Cómo quedó Test
+
+En **Test** sigue apareciendo a la izquierda la señal cruda del worker. A la derecha ahora aparece la **serie procesada real**.
+
+Para cada sensor muestra:
+
+```text
+Sensor | Initial μ | Kept | Outliers | Final μ
+```
+
+Así puedes ver, por ejemplo:
+
+```text
+Y1001   2.095       5/6     1          2.014
+```
+
+Y cada grupo pertenece a su batch correspondiente:
+
+```text
+Batch 1
+  Y1001 ...
+  L1001 ...
+  Y1002 ...
+  ...
+
+Batch 2
+  ...
+```
+
+Esto es importante porque **no asumí 8 sensores ni 6/8 microsensores en el procesamiento**. El parser trabaja con lo que realmente llegue del worker, así que acepta arrays dinámicos y cantidades variables de sensores.
+
+Además agregué arriba de Test este control:
+
+```text
+Radio de tolerancia       10%
+────────────────────────────●────
+```
+
+Puedes moverlo entre **1% y 25%**. Cuando lo cambias, todos los batches que la aplicación conserva en memoria se vuelven a procesar instantáneamente con el nuevo modelo; no necesitas reiniciar la simulación.
+
+También validé el proyecto con TypeScript y el código nuevo pasa el typecheck. No incluí `node_modules` en el ZIP para evitar nuevamente el problema de dependencias nativas entre plataformas, así que en tu Mac:
+
+```bash
+npm install
+npm run start
+```
+
+Un detalle que hice deliberadamente: **no modifiqué ni escribí `Report.md`**, porque las instrucciones de tu evaluación dicen explícitamente que la explicación del algoritmo de esa parte tienes que hacerla tú sin IA. El código sí tiene comentarios técnicos normales para que la implementación sea mantenible.
+Usando los datos procesados del modelo anterior, dame el código en typescript principalmente para integrar una gráfica dinámica en la pantalla 'Chart'. La gráfica debe visualizar la serie temporal de los resultados procesados a medida que el generador envía nuevos lotes, actualizándose en tiempo real de forma fluida
+Usando los datos procesados del modelo anterior, dame el código en typescript principalmente para integrar una gráfica dinámica en la pantalla 'Chart'. La gráfica debe visualizar la serie temporal de los resultados procesados a medida que el generador envía nuevos lotes, actualizándose en tiempo real de forma fluida
+Sí. Ya lo conecté directamente con el pipeline estadístico anterior: **Chart recibe los mismos `ProcessedBatch[]` que usa Test**, por lo que no vuelve a calcular promedios ni outliers.
+
+[Descargar Macondian con Chart en tiempo real](sandbox:/mnt/data/Macondian-Realtime-Chart.zip)
+
+El flujo ahora queda así:
+
+```text
+Generator / Worker
+        ↓
+parseMacondianMessage()
+        ↓
+RawBatch[]
+        ↓
+BatchProcessor
+        ↓
+ProcessedBatch[]
+        ↓
+ ┌─────────────┬──────────────┐
+ │    Test     │    Chart     │
+ │ tabla       │ time series  │
+ └─────────────┴──────────────┘
+```
+
+### 1. Cada batch ahora guarda cuándo llegó
+
+Añadí `receivedAt` porque para una serie temporal es preferible trabajar con el momento de llegada real y no simplemente con `Batch 1`, `Batch 2`, etc.
+
+```ts
+export interface RawBatch {
+  batchId: number;
+  receivedAt: number;
+  sensors: SensorReading[];
+}
+
+export interface ProcessedBatch {
+  batchId: number;
+  receivedAt: number;
+  sensors: ProcessedSensorReading[];
+}
+```
+
+Cuando llega un batch desde el worker:
+
+```ts
+if (parsed.kind === 'batch') {
+  setRawBatches((batches) => {
+    const next = [
+      ...batches,
+      {
+        batchId: parsed.batchId,
+        receivedAt: Date.now(),
+        sensors: [],
+      },
+    ];
+
+    return next.length > MAX_BATCHES
+      ? next.slice(-MAX_BATCHES)
+      : next;
+  });
+
+  return;
+}
+```
+
+Y `BatchProcessor` simplemente conserva el timestamp:
+
+```ts
+process(batch: RawBatch): ProcessedBatch {
+  return {
+    batchId: batch.batchId,
+    receivedAt: batch.receivedAt,
+
+    sensors: batch.sensors.map((sensor) => ({
+      sensorIndex: sensor.sensorIndex,
+      sensorId: sensor.sensorId,
+      microsensorCount: sensor.microsensors.length,
+
+      ...this.model.process(sensor.microsensors),
+    })),
+  };
+}
+```
+
+### 2. Chart recibe directamente los batches procesados
+
+Antes estaba:
+
+```tsx
+<Chart data={[]} />
+```
+
+Ahora:
+
+```tsx
+<Chart batches={processedBatches} />
+```
+
+Es decir:
+
+```tsx
+const processedBatches = useMemo(
+  () =>
+    rawBatches.map((batch) =>
+      batchProcessor.process(batch)
+    ),
+  [rawBatches, batchProcessor],
+);
+```
+
+y luego:
+
+```tsx
+const chartView = (
+  <div className="app-split" ref={splitRef}>
+    <section
+      className="app-pane"
+      data-bs-theme="dark"
+      style={{ flexGrow: leftPct }}
+    >
+      <Monitor
+        title="señal cruda"
+        log={rawLog}
+      />
+    </section>
+
+    <div
+      className="pane-divider"
+      onMouseDown={startDrag}
+    />
+
+    <section
+      className="app-pane"
+      style={{ flexGrow: 100 - leftPct }}
+    >
+      <Chart batches={processedBatches} />
+    </section>
+  </div>
+);
+```
+
+### 3. La serie usa `finalMean`
+
+Dentro de `Chart.tsx`, transformo:
+
+```ts
+ProcessedBatch[]
+```
+
+en una serie temporal por sensor:
+
+```ts
+type SensorPoint = {
+  batchId: number;
+  receivedAt: number;
+  value: number;
+};
+
+type SensorSeries = {
+  sensorId: string;
+  points: SensorPoint[];
+};
+```
+
+La función central es:
+
+```ts
+const buildSeries = (
+  batches: ProcessedBatch[],
+): SensorSeries[] => {
+  const map = new Map<string, SensorPoint[]>();
+
+  batches.forEach((batch) => {
+    batch.sensors.forEach((sensor) => {
+      const points =
+        map.get(sensor.sensorId) ?? [];
+
+      points.push({
+        batchId: batch.batchId,
+        receivedAt: batch.receivedAt,
+
+        // Resultado limpio del modelo estadístico
+        value: sensor.finalMean,
+      });
+
+      map.set(sensor.sensorId, points);
+    });
+  });
+
+  return [...map.entries()]
+    .map(([sensorId, points]) => ({
+      sensorId,
+      points,
+    }))
+    .sort((a, b) =>
+      a.sensorId.localeCompare(b.sensorId)
+    );
+};
+```
+
+Así, si recibes:
+
+```text
+Batch 1
+Y1001 → 2.014
+Y1002 → 4.831
+
+Batch 2
+Y1001 → 2.120
+Y1002 → 4.794
+
+Batch 3
+Y1001 → 2.087
+Y1002 → 4.910
+```
+
+Chart construye conceptualmente:
+
+```ts
+Y1001 = [2.014, 2.120, 2.087]
+
+Y1002 = [4.831, 4.794, 4.910]
+```
+
+pero conservando también el timestamp y el batch correspondiente.
+
+### 4. Ventana deslizante
+
+Para un stream continuo no conviene intentar renderizar 20.000 batches simultáneamente.
+
+Configuré:
+
+```ts
+const DEFAULT_WINDOW_SIZE = 48;
+```
+
+Y:
+
+```ts
+const visibleBatches = useMemo(
+  () => batches.slice(-windowSize),
+  [batches, windowSize],
+);
+```
+
+Por lo tanto, el procesamiento histórico puede seguir reteniendo más información, pero la gráfica solo pinta los últimos **48 batches**.
+
+Puedes cambiarlo fácilmente:
+
+```tsx
+<Chart
+  batches={processedBatches}
+  windowSize={100}
+/>
+```
+
+### 5. Actualización fluida con `requestAnimationFrame`
+
+No hice que la línea simplemente “salte” cuando llega un batch.
+
+Cada actualización interpola desde el frame actualmente dibujado hasta el nuevo:
+
+```ts
+const ANIMATION_MS = 280;
+```
+
+```ts
+const render = (timestamp: number) => {
+  const linearProgress = Math.min(
+    (timestamp - startedAt) / ANIMATION_MS,
+    1,
+  );
+
+  const progress =
+    1 - Math.pow(1 - linearProgress, 3);
+
+  const frame = interpolateFrame(
+    from,
+    targetFrame,
+    progress,
+  );
+
+  renderedFrameRef.current = frame;
+
+  drawChart(
+    canvas,
+    frame,
+    visibleBatches,
+    yDomain.min,
+    yDomain.max,
+  );
+
+  if (linearProgress < 1) {
+    animationRef.current =
+      requestAnimationFrame(render);
+  }
+};
+```
+
+Ese:
+
+```ts
+1 - Math.pow(1 - linearProgress, 3)
+```
+
+es un pequeño **ease-out**, por lo que el movimiento entra rápidamente y termina suavemente.
+
+### 6. Utilicé Canvas para el stream
+
+En esta versión preferí:
+
+```tsx
+<canvas
+  ref={canvasRef}
+  className="stream-chart-canvas"
+/>
+```
+
+en vez de acumular muchos nodos SVG.
+
+Para un dashboard que puede recibir datos continuamente tiene varias ventajas:
+
+* pocos nodos en el DOM;
+* redraw muy barato;
+* varias líneas simultáneas;
+* animación con `requestAnimationFrame`;
+* no agregamos una dependencia de charts;
+* permite manejar streams largos mejor;
+* responde bien al redimensionar tu split Test/Chart.
+
+Además utilizo:
+
+```ts
+const dpr =
+  Math.max(window.devicePixelRatio || 1, 1);
+```
+
+para que la gráfica permanezca nítida en pantallas Retina.
+
+Y:
+
+```ts
+const observer =
+  new ResizeObserver(() => {
+    drawChart(...);
+  });
+
+observer.observe(canvas);
+```
+
+por lo que si arrastras el separador entre paneles, la gráfica se reajusta automáticamente.
+
+### 7. Sensores dinámicos
+
+No asumí una cantidad fija de sensores.
+
+Chart obtiene los IDs disponibles:
+
+```ts
+const sensorIds = useMemo(
+  () =>
+    allSeries.map(
+      (series) => series.sensorId,
+    ),
+  [allSeries],
+);
+```
+
+y genera automáticamente:
+
+```tsx
+<select
+  value={selectedSensor}
+  onChange={(event) =>
+    setSelectedSensor(event.target.value)
+  }
+>
+  <option value="all">
+    All sensors
+  </option>
+
+  {sensorIds.map((sensorId) => (
+    <option
+      value={sensorId}
+      key={sensorId}
+    >
+      {sensorId}
+    </option>
+  ))}
+</select>
+```
+
+Por tanto puedes ver:
+
+```text
+Sensor
+┌──────────────────┐
+│ All sensors    ▼ │
+├──────────────────┤
+│ Y1001            │
+│ Y1002            │
+│ L1001            │
+│ ...              │
+└──────────────────┘
+```
+
+Si seleccionas uno, la escala Y también se recalcula para ese sensor.
+
+### 8. KPIs de Chart
+
+También conecté las métricas a datos reales:
+
+```tsx
+Latest avg
+2.428
+
+Window avg
+2.391
+
+Range
+1.974–2.803
+
+Batches
+48
+```
+
+Cuando está seleccionado `All sensors`, `Latest avg` representa el promedio de los resultados finales del último batch:
+
+```ts
+const latestValues =
+  latestBatch
+    ? latestBatch.sensors
+        .filter(
+          (sensor) =>
+            selectedSensor === 'all' ||
+            sensor.sensorId === selectedSensor,
+        )
+        .map(
+          (sensor) => sensor.finalMean,
+        )
+    : [];
+
+const latest =
+  latestValues.length > 0
+    ? mean(latestValues)
+    : 0;
+```
+
+Si seleccionas `Y1001`, entonces muestra únicamente el último `finalMean` de `Y1001`.
+
+El resultado final es una pantalla **Chart realmente conectada al stream**, no una gráfica con datos de ejemplo: cada nuevo batch entra al parser, pasa por el modelo de tolerancia que construimos antes, y su `finalMean` aparece automáticamente en la serie con una transición de ~280 ms.
+
+También pasé el proyecto completo por `tsc --noEmit` y **la integración actual no presenta errores de TypeScript**.
+
