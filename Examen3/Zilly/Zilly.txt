@@ -12,5 +12,8 @@ Conteste SI o NO y explique porqué, de manera clara, rigurosa, y en pocas líne
 Importante: deben tener la definicion de fibo (tal y como se muestra arriba) en el mismo archivo de sfib
 
 1. Z => Z sfib := fn(Z n) => Z -> if(n < 1, 0, sfib(n - 1) + fibo(n));
-2. ⁠La suma acumulada de la serie de Fibonacci desde el índice 0 hasta la posición n es exactamente igual al valor del término ubicado en la posición n+2 de la secuencia, restándole una unidad.    Z => Z zfib := fn(Z n) => Z -> fibo(n + 2) - 1;
+
+2.La relación es sfib(n) = fibo(n+2) - 1 
+Z => Z zfib := fn(Z n) => Z -> fibo(n + 2) - 1;
+
 3. No. Aunque zfib elimina la recursión de la sumatoria, delega todo el trabajo bruto a fibo(n+2). Esta única llamada desencadena una gran cantidad de sub-llamadas redundantes, cuyo costo de procesamiento equivale a calcular y sumar cada uno de los términos individuales como lo hace sfib.
